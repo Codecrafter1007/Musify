@@ -76,7 +76,7 @@ class user{
             playlistCount = 0;
         }
         void addPlaylist(playlist &obj){
-            if(playlistCount < 2){
+            if(playlistCount <= 5){
                 playlists[playlistCount] = obj;
                 playlistCount++;
             }
@@ -90,8 +90,12 @@ class user{
             std::cout<<"Playlist Created!"<<std::endl;
         }
 
+        void add_song_to_playlist(int i, song &songobj){
+            playlists[i-1].addSong(songobj);
+        }
+
         void display(){
-            std::cout <<"*****"<<username<<"*****"<<std::endl;
+            std::cout <<"***************"<<username<<"****************"<<std::endl;
             for (int i = 0; i != playlistCount; i++){
                 playlists[i].display();
             }
@@ -102,8 +106,11 @@ int main(){
     song song2("Sach keh raha hai", "KK", 329);
 
     user user1("Amish");
-    user1.createPlaylist("3 AM Songs");
-    user1.createPlaylist("PHONK");
-    user1.createPlaylist("AIZEN");
+    user1.createPlaylist("3 AM Songs"); 
+    user1.add_song_to_playlist(1,song1);
 
+    user1.createPlaylist("PHONK");
+    user1.add_song_to_playlist(2,song2);
+
+    user1.display();
 }
