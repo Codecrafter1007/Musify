@@ -1,3 +1,5 @@
+from storage import save_songs, load_songs
+
 class Song:
     
     def __init__(self, title, artist, duration):
@@ -16,7 +18,19 @@ class Song:
     
     def getPlaycount(self):
         return self.playcount
+    
+    def to_dict(self):
+        return {"title":self.title,
+                "artist":self.artist,
+                "duration":self.duration,
+                "playcount":self.playcount}
 
+    @classmethod
+    def from_dict(cls, data):
+        song = cls(data["title"], data["artist"], data["duration"])
+        song.playcount = data["playcount"]
+        return (song)
+    
 class playlist:
     def __init__(self, playlistName):
         self.playlistName = playlistName
@@ -65,9 +79,14 @@ class user:
 song1 = Song("Bulleya", "Papon", 357)
 song2 = Song("Sach keh raha hai", "KK", 329)
 
-user1 = user("Amish")
-user1.createPlaylist("sad songs")
-user1.add_song_to_playlist(1, song1)
-user1.add_song_to_playlist(1, song2)
-user1.display()
+
+# save
+songs = [song1, song2]
+save_songs(songs)
+
+# load
+loaded_songs = load_songs()
+for song in loaded_songs:
+    song.display()
+
 
