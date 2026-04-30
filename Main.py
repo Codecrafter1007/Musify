@@ -4,18 +4,44 @@ from Playlist import playlist
 from User import user
 
 #main
-song1 = Song("Bulleya", "Papon", 357)
-song2 = Song("Sach keh raha hai", "KK", 329)
 
+def menu():
+    choice = True
+    while (choice):
+        print("Welcome to Musify!")
+        print("1) Add a song")
+        print("2) Create a playlist")
+        print("3) Display library")
+        print("4) Exit")
+        
+        user_input = int(input("Enter your Choice (1-4): "))
+        
+        match user_input:
+                case 1:
+                    addSong()
+                case 3:
+                    display_library()
+                case 4:
+                    choice = False
+                case _:
+                    print("INVALID CHOICE! \n")       
+def addSong():
+    tempSongs = load_songs()
+    
+    title = input("Enter song name: ")
+    artist = input("Enter artist's name: ")
+    duration = int(input("Enter song duration: "))
+    
+    songObj = Song(title, artist, duration)
+    tempSongs.append(songObj)
+    save_songs(tempSongs)
 
-# save
-songs = [song1, song2]
-save_songs(songs)
-
-# load
-loaded_songs = load_songs()
-for song in loaded_songs:
-    song.display()
-    print(f"{song.playcount}")
-
-
+def display_library():
+    tempSongs = load_songs()
+    if not tempSongs:
+        print("LIBRARY IS EMPTY \n")
+        
+    else:
+        for song in tempSongs:
+            print(song.title)
+menu()

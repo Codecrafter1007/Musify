@@ -25,5 +25,4 @@ def load_songs():
         print("NO DATA FOUND!")
         return []
     except json.JSONDecodeError:
-        print("LIBRARY IS EMPTY")
         return []
