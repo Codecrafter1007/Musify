@@ -17,14 +17,14 @@ class Song:
     def getPlaycount(self):
         return self.playcount
     
-    def to_dict(self):
+    def song_to_dict(self):
         return {"title":self.title,
                 "artist":self.artist,
                 "duration":self.duration,
                 "playcount":self.playcount}
 
     @classmethod
-    def from_dict(cls, data):
+    def song_from_dict(cls, data):
         song = cls(data["title"], data["artist"], data["duration"])
         song.playcount = data["playcount"]
         return (song)
