@@ -5,3 +5,7 @@ i've separated the classes into thier own separate file and i created a save & l
 
 30-04-26
 Made a fully functional command line app with multiple function present in a music file! still need to add one function though.
+
+1-05-26
+Phase 1 complete — CLI music manager with song library, 
+playlists, and JSON persistence.

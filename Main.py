@@ -12,21 +12,29 @@ def menu():
         print("1) Add song to library")
         print("2) Create a playlist")
         print("3) Add song to playlist")
-        print("4) Display library")
-        print("5) Exit")
+        print("4) Display playlist")
+        print("5) Display library")
+        print("6) Exit")
         
-        user_input = int(input("Enter your Choice (1-4): "))
+        user_input = int(input("Enter your Choice (1-6): "))
         
         match user_input:
                 case 1:
                     addSong()
+                    print()
                 case 2:
                     create_playlist()
+                    print()
                 case 3:
                     add_song_to_playlist()
+                    print()
                 case 4:
-                    display_library()
+                    display_playlist()
+                    print()
                 case 5:
+                    display_library()
+                    print()
+                case 6:
                     choice = False
                 case _:
                     print("INVALID CHOICE! \n")       
@@ -63,8 +71,25 @@ def add_song_to_playlist():
     song_num = int(input("Choose your song: "))
     
     tempPlaylists[playlist_num-1].addSong(tempSongs[song_num-1])
-    
     save_playlists(tempPlaylists)
+
+def display_playlist():
+    tempPlaylist = load_playlists()
+    if not tempPlaylist:
+        print("NO PLAYLISTS")
+    else:
+        for i in range (len(tempPlaylist)):
+            print(f"#{i+1} {tempPlaylist[i].playlistName}")
+
+        playlist_num = int(input(("Choose playlist to display: ")))
+        
+        print()
+        print(f"{tempPlaylist[playlist_num-1].playlistName}")
+        print()
+        
+        for song in tempPlaylist[playlist_num-1]._songs:
+            print(f"{song.title} by {song.artist}")
+              
 
 def display_library():
     tempSongs = load_songs()
