@@ -9,3 +9,6 @@ Made a fully functional command line app with multiple function present in a mus
 1-05-26
 Phase 1 complete — CLI music manager with song library, 
 playlists, and JSON persistence.
+
+1-05-26
+connected SQL to Python and also secured the password!
