@@ -4,14 +4,16 @@ from dotenv import load_dotenv
 from song import Song
 load_dotenv()
 
-def db_load_songs():
-    conn = psycopg2.connect(
+def get_connection():
+    return psycopg2.connect(
         host = "localhost",
         database = "musify",
         user = "postgres",
         password = os.getenv("DB_PASSWORD")
     )
 
+def db_load_songs():
+    conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM songs")
     rows = cursor.fetchall() #fetches entire data from the table
@@ -25,13 +27,7 @@ def db_load_songs():
     return songs
 
 def db_save_songs(songs):
-    conn = psycopg2.connect(
-        host = "localhost",
-        database = "musify",
-        user = "postgres",
-        password = os.getenv("DB_PASSWORD")
-    )
-    
+    conn = get_connection()
     cursor = conn.cursor()
     
     for song in songs:
