@@ -12,3 +12,8 @@ playlists, and JSON persistence.
 
 1-05-26
 connected SQL to Python and also secured the password!
+
+2-05-26
+Phase 2 progress — PostgreSQL database integration complete.
+Songs and playlists now stored in relational database with 
+junction table for playlist-song relationships.
