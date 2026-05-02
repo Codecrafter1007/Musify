@@ -1,4 +1,4 @@
-from storage import save_songs, load_songs, save_playlists,load_playlists
+from db_storage import *
 from song import Song
 from Playlist import playlist
 from User import user
@@ -39,7 +39,7 @@ def menu():
                 case _:
                     print("INVALID CHOICE! \n")       
 def addSong():
-    tempSongs = load_songs()
+    tempSongs = db_load_songs()
     
     title = input("Enter song name: ")
     artist = input("Enter artist's name: ")
@@ -47,56 +47,63 @@ def addSong():
     
     songObj = Song(title, artist, duration)
     tempSongs.append(songObj)
-    save_songs(tempSongs)
+    db_save_songs(tempSongs)
+    print(f"{title} added to library!")
 
 def create_playlist():
-    tempPlaylists = load_playlists()
     playlistName = input("Enter playlist name: ")
-    playlistobj = playlist(playlistName)
-    tempPlaylists.append(playlistobj)
-    save_playlists(tempPlaylists)
+    db_create_playlist(playlistName)
+    print("Playlist Created!")
 
 def add_song_to_playlist():
-    tempPlaylists = load_playlists()
-    tempSongs = load_songs()
+    tempPlaylists = db_load_playlists()
+    tempSongs = db_load_songs()
     
     for i in range(len(tempPlaylists)):
-        print(f"#{i+1} {tempPlaylists[i].playlistName}")
+        print(f"#{i+1} {tempPlaylists[i][1]}")
         
     playlist_num = int(input("Choose playlist: "))
+    playlist_name = tempPlaylists[playlist_num-1][1]
     
     for j in range(len(tempSongs)):
         print(f"#{j+1} {tempSongs[j].title}")
     
     song_num = int(input("Choose your song: "))
+    song_name = tempSongs[song_num-1].title
     
-    tempPlaylists[playlist_num-1].addSong(tempSongs[song_num-1])
-    save_playlists(tempPlaylists)
+    db_add_song_to_playlist(tempPlaylists[playlist_num-1][0], get_song_id(song_name))
+    print(f"{song_name} added to {playlist_name}")
 
 def display_playlist():
-    tempPlaylist = load_playlists()
+    tempPlaylist = db_load_playlists()
     if not tempPlaylist:
         print("NO PLAYLISTS")
     else:
         for i in range (len(tempPlaylist)):
-            print(f"#{i+1} {tempPlaylist[i].playlistName}")
+            print(f"#{i+1} {tempPlaylist[i][1]}")
 
         playlist_num = int(input(("Choose playlist to display: ")))
         
         print()
-        print(f"{tempPlaylist[playlist_num-1].playlistName}")
+        print(f"{tempPlaylist[playlist_num-1][1]}")
         print()
         
-        for song in tempPlaylist[playlist_num-1]._songs:
-            print(f"{song.title} by {song.artist}")
+        songs = get_playlist_songs(get_playlist_id(tempPlaylist[playlist_num-1][1]))
+        
+        if not songs:
+            print("No songs currently")
+        else:
+            for song in songs:
+                print(f"{song[0]} by {song[1]}")
               
 
 def display_library():
-    tempSongs = load_songs()
+    tempSongs = db_load_songs()
     if not tempSongs:
         print("LIBRARY IS EMPTY \n")
         
     else:
+        print()
         for song in tempSongs:
             print(f"{song.title} by {song.artist}")
 
