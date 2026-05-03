@@ -1,6 +1,6 @@
 from song import Song
 
-class playlist:
+class Playlist:
     def __init__(self, playlistName):
         self.playlistName = playlistName
         self._songs = []

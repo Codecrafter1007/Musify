@@ -2,7 +2,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 from song import Song
-from Playlist import playlist
+from playlist import Playlist
 load_dotenv()
 
 def get_connection():
@@ -49,9 +49,9 @@ def db_load_playlists():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM playlists")
-    rows = cursor.fetchall() #fetches entire data from the table
+    playlists = cursor.fetchall() #fetches entire data from the table
     conn.close()
-    return rows
+    return playlists
 
 def db_add_song_to_playlist(playlist_id, song_id):
     conn = get_connection()

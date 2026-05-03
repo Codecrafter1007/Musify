@@ -1,6 +1,6 @@
 from db_storage import *
 from song import Song
-from Playlist import playlist
+from playlist import Playlist
 from User import user
 
 #main
