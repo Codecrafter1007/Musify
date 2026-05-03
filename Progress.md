@@ -12,3 +12,10 @@ playlists, and JSON persistence.
 
 1-05-26
 connected SQL to Python and also secured the password!
+
+2-05-26
+fully integrated sql, changed all the menu function code accordingly
+
+3-05-06
+Phase 2: PostgreSQL database and FastAPI REST API complete
+and made separate progress and readme files.
